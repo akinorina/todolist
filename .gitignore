@@ -1,0 +1,14 @@
+#
+# git ignore files.
+#
+.env
+*.local
+
+# logs
+*.log
+*.log.gz
+
+# db
+db/data/*
+db/initdb.d/*
+!db/initdb.d/.gitkeep
