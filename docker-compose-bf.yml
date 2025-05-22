@@ -1,0 +1,38 @@
+#
+# docker-compose.yml
+#
+services:
+  #
+  # backend API server.
+  #
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+      context: ../todolist_backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - be
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      # Database (MySQL)
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DBNAME: ${DATABASE_DBNAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl http://backend:3000/api || exit 1']
+      start_period: 3s
+      retries: 3
+      timeout: 1s
+      interval: 1s
+
+networks:
+  be: {}
