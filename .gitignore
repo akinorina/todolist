@@ -12,3 +12,7 @@
 db/data/*
 db/initdb.d/*
 !db/initdb.d/.gitkeep
+
+# reverse-proxy
+reverse-proxy/certificates/*
+!reverse-proxy/certificates/.gitkeep
